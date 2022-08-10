@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        .botaoJogoDaVelha{
+            height: 200px;
+            width: 200px;
+            position: static;
+            font-size: 180px;
+        }
+        .tamanhoCampo{
+            padding-top: 4px;
+            height: 200px;
+        }
+        #container{
+            margin-top: 10px;
+        }
+        .corVerde{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="tamanhoCampo">
+            <span><input id="d1" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d1')"></span>
+            <span><input id="d2" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d2')"></span>        
+            <span><input id="d3" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d3')"></span>     
+        </div>        
+        <div class="tamanhoCampo">            
+            <span><input id="d4" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d4')"></span>        
+            <span><input id="d5" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d5')"></span>     
+            <span><input id="d6" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d6')"></span>
+        </div>        
+        <div class="tamanhoCampo">            
+            <span><input id="d7" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d7')"></span>
+            <span><input id="d8" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d8')"></span>        
+            <span><input id="d9" type="button" value=" " class="botaoJogoDaVelha" onclick="marcarComXouO('d9')"></span>     
+        </div>
+        <div id="resultado"></div>
+    </div>          
+    <script>
+        window.jogada = "";
+        window.onload = function(e){
+            window.jogada = "X";
+        }
+
+        function marcarComXouO(campo){         
+            if(document.getElementById(campo).value == " "){
+                
+                if(window.jogada == "X"){
+                    document.getElementById(campo).value = window.jogada;
+                    window.jogada = "O";
+                }else{
+                    document.getElementById(campo).value = window.jogada;
+                    window.jogada = "X";
+                }
+
+                var d1 = document.getElementById("d1").value;
+                var d2 = document.getElementById("d2").value;
+                var d3 = document.getElementById("d3").value;
+                var d4 = document.getElementById("d4").value;
+                var d5 = document.getElementById("d5").value;
+                var d6 = document.getElementById("d6").value;
+                var d7 = document.getElementById("d7").value;
+                var d8 = document.getElementById("d8").value;
+                var d9 = document.getElementById("d9").value;
+
+                var mensagemRetorno = "";
+                var houveVencedorOuDeuVelha = false;
+
+                if(d1 == d2 && d2 == d3 && d1 != " "){
+                    mensagemRetorno = "A jogada " + d1 + " foi a vencedora";
+                    document.getElementById("d1").classList.add("corVerde");
+                    document.getElementById("d2").classList.add("corVerde");
+                    document.getElementById("d3").classList.add("corVerde");
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d4 == d5 && d5 == d6 && d4 != " "){
+                    mensagemRetorno = "A jogada " + d4 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d7 == d8 && d8 == d9 && d7 != " "){
+                    mensagemRetorno = "A jogada " + d7 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d1 == d4 && d4 == d7 && d7 != " "){
+                    mensagemRetorno = "A jogada " + d1 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d2 == d5 && d5 == d8 && d2 != " "){
+                    mensagemRetorno = "A jogada " + d2 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d3 == d6 && d6 == d9 && d3 != " "){
+                    mensagemRetorno = "A jogada " + d3 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d1 == d5 && d5 == d9 && d1 != " "){
+                    mensagemRetorno = "A jogada " + d1 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }
+                else if(d3 == d5 && d5 == d7 && d3 != " "){
+                    mensagemRetorno = "A jogada " + d3 + " foi a vencedora";
+                    houveVencedorOuDeuVelha = true;
+                }else if(d1 != " " && d2 != " " && d3 != " " && d4 != " " && d5 != " " && d6 != " " && d7 != " " && d8 != " " && d9 != " "){
+                    mensagemRetorno = "Deu velha";
+                    houveVencedorOuDeuVelha = true;
+                }
+
+                if(houveVencedorOuDeuVelha == true){
+                    document.getElementById("d2").disabled = true;
+                    document.getElementById("d3").disabled = true;
+                    document.getElementById("d4").disabled = true;
+                    document.getElementById("d5").disabled = true;
+                    document.getElementById("d1").disabled = true;
+                    document.getElementById("d6").disabled = true;
+                    document.getElementById("d7").disabled = true;
+                    document.getElementById("d8").disabled = true;
+                    document.getElementById("d9").disabled = true;                                       
+                    alert(mensagemRetorno);
+                }
+            }
+        }
+    </script>  
+</body>
+</html>
